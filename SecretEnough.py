@@ -10,16 +10,16 @@ class Application(Frame):
         pass_input.grid(row=0, column=1)
         btn_check = Button(self, text="OK")
         btn_check.grid(row=0, column=2)
-        btn_check["command"] = self.basic_data
+        btn_check["command"] = self.basic_data(pass_input)
         #cannot operate need to pass password input
         #from pass_input to basic data
 
-    def basic_data(self): #calculate inside password
+    def basic_data(self, password): #calculate inside password
         upper = 0
         lower = 0
         symbols = 0
         number = 0
-        get_pass = pass_input.get()
+        get_pass = password.get()
         for element in get_pass:
             if element.isalpha():
                 if element.isupper():
@@ -42,7 +42,7 @@ class Application(Frame):
         label_upper.grid(row=0)
         label_lower = Label(self, text=str(lower))
         label_lower.grid(row=0)
-        label_symbols = Label(self, text=str(sysmbols))
+        label_symbols = Label(self, text=str(symbols))
         label_symbols.grid(row=0)
         label_number = Label(self, text=str(number))
         label_number.grid(row=0)
