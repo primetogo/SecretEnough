@@ -62,7 +62,7 @@ class Application(Frame):
 
 root = Tk()
 root.geometry("450x450")
-root.title("Secret Enough? | The PSIT Project")
+root.title("Secret Enough?")
 
 app = Application(master=root)
 app.mainloop()
