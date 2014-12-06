@@ -14,10 +14,7 @@ class Application(Frame):
         #cannot operate need to pass password input
         #from pass_input to basic data
     def basic_data(self, password): #calculate inside password
-        upper = 0
-        lower = 0
-        symbols = 0
-        number = 0
+        upper, lower, symbols, number = 0, 0, 0, 0
         get_pass = password.get()
         for element in get_pass:
             if element.isalpha():
