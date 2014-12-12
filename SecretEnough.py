@@ -104,12 +104,27 @@ class IdenPass():
 
 class GenePass():
     def __init__(self, master):
+        #self.lentext = IntVar()
         self.master = master
         self.master.geometry('500x200')
         self.master.title('Password Genereter')
 
+        self.label = Label(self.master, text='This is a Password Gereneter Page')
+        self.label.grid(row=0, column=0)
+        self.labellen = Label(self.master, text='How length for the password')
+        self.labellen.grid(row=1, column=0)
+        self.passlen = Spinbox(self.master, from_=1, to=20, state=NORMAL)
+        self.passlen.grid(row=1, column=1)
+        self.button = Button(self.master, text='OK', fg='blue', command=self.genPass)
+        self.button.grid(row=1, column=2)
+
         self.button = Button(self.master, text='Back', fg='red', command=self.back)
-        self.button.grid(row=0, column=0)
+        self.button.grid(row=9, column=0)
+
+
+    def genPass(self):
+        lenpass = self.passlen.get()
+        print lenpass
 
     def back(self):
         self.master.destroy()
