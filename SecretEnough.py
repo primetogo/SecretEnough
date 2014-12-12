@@ -104,7 +104,10 @@ class IdenPass():
 
 class GenePass():
     def __init__(self, master):
-        #self.lentext = IntVar()
+        self.upper = IntVar()
+        self.lower = IntVar()
+        self.digit = IntVar()
+        self.symbol = IntVar()
         self.master = master
         self.master.geometry('500x200')
         self.master.title('Password Genereter')
@@ -113,25 +116,25 @@ class GenePass():
         self.label.grid(row=0, column=0)
         self.labellen = Label(self.master, text='How length for the password')
         self.labellen.grid(row=1, column=0)
-        self.passlen = Spinbox(self.master, from_=1, to=20, state=NORMAL)
+        self.passlen = Spinbox(self.master, from_=4, to=20, state=NORMAL)
         self.passlen.grid(row=1, column=1)
         self.button = Button(self.master, text='OK', fg='blue', command=self.genPass)
         self.button.grid(row=1, column=2)
-        self.labelUpper = Label(self.master, text='Upper Case')
-        self.labelUpper.grid(row=2, column=0)
-        self.checkUpper = Checkbutton(self.master, state=ACTIVE)
+##        self.labelUpper = Label(self.master, text='Upper Case')
+##        self.labelUpper.grid(row=2, column=0)
+        self.checkUpper = Checkbutton(self.master, text='Upper Case', variable=self.upper)
         self.checkUpper.grid(row=3, column=0)
-        self.labelLower = Label(self.master, text='Lower Case')
-        self.labelLower.grid(row=2, column=1)
-        self.checkLower = Checkbutton(self.master, state=ACTIVE)
+##        self.labelLower = Label(self.master, text='Lower Case')
+##        self.labelLower.grid(row=2, column=1)
+        self.checkLower = Checkbutton(self.master, text='Lower Case', variable=self.lower)
         self.checkLower.grid(row=3, column=1)
-        self.labelDigit = Label(self.master, text='Digit')
-        self.labelDigit.grid(row=2, column=2)
-        self.checkDigit = Checkbutton(self.master, state=ACTIVE)
+##        self.labelDigit = Label(self.master, text='Digit')
+##        self.labelDigit.grid(row=2, column=2)
+        self.checkDigit = Checkbutton(self.master, text='Digit', variable=self.digit)
         self.checkDigit.grid(row=3, column=2)
-        self.labelSymbol = Label(self.master, text='Symbol')
-        self.labelSymbol.grid(row=2, column=3)
-        self.checkSymbol = Checkbutton(self.master, state=ACTIVE)
+##        self.labelSymbol = Label(self.master, text='Symbol')
+##        self.labelSymbol.grid(row=2, column=3)
+        self.checkSymbol = Checkbutton(self.master, text='Symbol', variable=self.symbol)
         self.checkSymbol.grid(row=3, column=3)
 
         self.button = Button(self.master, text='Back', fg='red', command=self.back)
@@ -140,6 +143,7 @@ class GenePass():
 
     def genPass(self):
         lenpass = self.passlen.get()
+        
         print lenpass
 
     def back(self):
