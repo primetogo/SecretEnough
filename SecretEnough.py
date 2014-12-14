@@ -1,5 +1,4 @@
 from Tkinter import *
-from itertools import *
 from math import *
 
 class Welcome():
@@ -55,6 +54,8 @@ class IdenPass():
         self.label3.grid(row=2, column=0, sticky='W')
         self.passforce = Entry(self.master, textvariable=self.force)
         self.passforce.grid(row=2, column=2)
+        self.label4 = Label(self.master, text='guessing/sec')
+        self.label4.grid(row=2, column=3)
         self.button = Button(self.master, text='OK', fg='blue', command=self.checkpass)
         self.button.grid(row=3, column=1)
         self.button = Button(self.master, text='Back', fg='red', command=self.back)
@@ -75,32 +76,25 @@ class IdenPass():
             else:
                 symbol += 1
         textlist = [upper, lower, number, symbol]
-        probanum = self.probaCrackPass(textlist, force)
+        probanum = self.probaCrackPass(textlist, force, passtext)
         self.labelresult = Label(self.master, text='Your password have :')
-        self.labelresult.grid(row=4, column=0)
+        self.labelresult.grid(row=4, column=0, sticky='W')
         self.labelupper = Label(self.master, text='%d Upper case' % upper)
         self.labelupper.grid(row=4, column=1)
         self.labellower = Label(self.master, text='%d Lower case' % lower)
         self.labellower.grid(row=4, column=2)
         self.labelnumber = Label(self.master, text='%d Digit' % number)
-        self.labelnumber.grid(row=4, column=4)
+        self.labelnumber.grid(row=4, column=3)
         self.labelsymbol = Label(self.master, text='%d Symbol' % symbol)
-        self.labelsymbol.grid(row=4, column=5)
-        self.labeltextproba = Label(self.master, text='Your password has '+str(probanum)+' combination')
-        self.labeltextproba.grid(row=5, column=0)
+        self.labelsymbol.grid(row=4, column=4)
+        self.labeltextproba = Label(self.master, text='Your password has '+str(probanum)+' possible')
+        self.labeltextproba.grid(row=5, column=0, sticky='W')
 
         
         
-    def probaCrackPass(self, textlist, force):
-        probanum = 0
-        lst_cal = [26 ** textlist[0], 26 ** textlist[1], 10 ** textlist[2], 38 ** textlist[3]]
-        for element in lst_cal:
-            if element != 1:
-                probanum += element    
+    def probaCrackPass(self, textlist, force, data):
+        probanum = factorial(len(data)) / factorial(len(data) - len(data))
         #Calculate time that use to crack password aka bruteforce
-        
-        print lst_cal
-        print probanum
         return probanum
                                  
             
