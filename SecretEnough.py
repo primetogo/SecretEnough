@@ -41,7 +41,7 @@ class IdenPass():
         self.text = StringVar()
         self.force = IntVar()
         self.master = master
-        self.master.geometry('600x200')
+        self.master.geometry('600x300')
         self.master.title('Password Identify')
 
         self.label = Label(self.master, text='This is a Password Identify Page')
@@ -54,6 +54,7 @@ class IdenPass():
         self.label3.grid(row=2, column=0, sticky='W')
         self.passforce = Entry(self.master, textvariable=self.force)
         self.passforce.grid(row=2, column=2)
+        self.force.set(1000)
         self.label4 = Label(self.master, text='guessing/sec')
         self.label4.grid(row=2, column=3)
         self.button = Button(self.master, text='OK', fg='blue', command=self.checkpass)
@@ -87,19 +88,50 @@ class IdenPass():
         self.labelnumber.grid(row=4, column=3)
         self.labelsymbol = Label(self.master, text='%d Symbol' % symbol)
         self.labelsymbol.grid(row=4, column=4)
-        self.labeltextproba = Label(self.master, text='Your password has '+str(probanum)+' possible')
+        self.labeltextproba = Label(self.master, text='Your password has '+str(probanum[0])+' possible case')
         self.labeltextproba.grid(row=5, column=0, sticky='W')
-
-        
+        self.labelcrack = Label(self.master, text='Your password has will cracked in')
+        self.labelcrack.grid(row=6, column=0, sticky='W')
+        count = 0
+        col = 7
+        lst_prefix = ['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds']
+        check = all(letter == 0 for letter in probanum[1])
+        if check == False:
+            for ele in probanum[1]:
+                self.labeldata = Label(self.master, text=str(ele) +' '+ lst_prefix[count])
+                self.labeldata.grid(row=col, column=0)
+                col += 1
+                count += 1
+        else:
+            self.labeldata = Label(self.master, text='Your password will cracked in no time!')
+            self.labeldata.grid(row=7, column=0)
         
     def probaCrackPass(self, textlist, force, data):
         probanum = factorial(len(data)) / factorial(len(data) - len(data))
         #Calculate time that use to crack password aka bruteforce
-        return probanum
-                                 
-            
-
-
+        crack = []
+        check = all(letter == data[0] for letter in data)
+        if check == False:
+            seconds = int(probanum / force) #time second
+            crack.append(seconds)
+            minutes, seconds = divmod(seconds, 60)
+            crack.append(minutes)
+            hours, minutes = divmod(minutes, 60)
+            crack.append(hours)
+            days, hours = divmod(hours, 24)
+            crack.append(days)
+            weeks, days = divmod(days, 7)
+            crack.append(weeks)
+            months, weeks = divmod(weeks, 4)
+            crack.append(months)
+            years, months = divmod(months, 12)
+            crack.append(years)
+        else:
+            crack = [0]
+            attemp = 1
+            probanum = 1
+        return probanum, crack
+                                        
     def back(self):
         self.master.destroy()
 
