@@ -76,21 +76,29 @@ class IdenPass():
                 number += 1
             else:
                 symbol += 1
+       
         textlist = [upper, lower, number, symbol]
         probanum = self.probaCrackPass(textlist, force, passtext)
         self.labelresult = Label(self.master, text='Your password have :')
+        self.labelresult.grid_forget()
         self.labelresult.grid(row=4, column=0, sticky='W')
-        self.labelupper = Label(self.master, text='%d Upper case' % upper)
+        self.labelupper = Label(self.master, text='%d  Upper case' % upper)
+        self.labelupper.grid_forget()
         self.labelupper.grid(row=4, column=1)
-        self.labellower = Label(self.master, text='%d Lower case' % lower)
+        self.labellower = Label(self.master, text='%d  Lower case' % lower)
+        self.labellower.grid_forget()
         self.labellower.grid(row=4, column=2)
-        self.labelnumber = Label(self.master, text='%d Digit' % number)
+        self.labelnumber = Label(self.master, text='%d  Digit' % number)
+        self.labelnumber.grid_forget()
         self.labelnumber.grid(row=4, column=3)
-        self.labelsymbol = Label(self.master, text='%d Symbol' % symbol)
+        self.labelsymbol = Label(self.master, text='%d  Symbol' % symbol)
+        self.labelsymbol.grid_forget()
         self.labelsymbol.grid(row=4, column=4)
         self.labeltextproba = Label(self.master, text='Your password has '+str(probanum[0])+' possible case')
+        self.labeltextproba.grid_forget()
         self.labeltextproba.grid(row=5, column=0, sticky='W')
         self.labelcrack = Label(self.master, text='Your password has will cracked in')
+        self.labelcrack.grid_forget()
         self.labelcrack.grid(row=6, column=0, sticky='W')
         count = 0
         col = 7
@@ -99,11 +107,15 @@ class IdenPass():
         if check == False:
             for ele in probanum[1]:
                 self.labeldata = Label(self.master, text=str(ele) +' '+ lst_prefix[count])
+                if self.labeldata.winfo_exists():
+                    self.labeldata.grid_forget()
                 self.labeldata.grid(row=col, column=0)
                 col += 1
                 count += 1
         else:
             self.labeldata = Label(self.master, text='Your password will cracked in no time!')
+            if self.labeldata.winfo_exists():
+                    self.labeldata.grid_forget()
             self.labeldata.grid(row=7, column=0)
         
     def probaCrackPass(self, textlist, force, data):
