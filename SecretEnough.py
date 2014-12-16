@@ -52,9 +52,12 @@ class IdenPass():
         quark_b = tkFont.Font(family= "Quark", size= 18, weight="bold")
         quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
         quark_button = tkFont.Font(family= "Quark", size= 13, weight="bold")
-        self.label = Label(self.master, text='This is a Password Identify Page', font=quark_l)
+        self.label = Label(self.master, text= \
+                      'This is a Password Identify Page', font=quark_l)
         self.label.grid(row=0, column=0)
-        self.label2 = Label(self.master, text='Please insert password that you want to identify', font=quark_l)
+        self.label2 = Label(self.master, text= \
+                        'Please insert password that you want to identify', \
+                        font=quark_l)
         self.label2.grid(row=1, column=0)
         self.passtext = Entry(self.master, textvariable=self.text, font=quark_l)
         self.passtext.grid(row=1, column=2)
@@ -65,10 +68,13 @@ class IdenPass():
         self.force.set(1000)
         self.label4 = Label(self.master, text='combination/sec', font=quark_l)
         self.label4.grid(row=2, column=3)
-        self.button = Button(self.master, text='OK', fg='blue', command=self.checkpass, font=quark_button)
+        self.button = Button(self.master, text='OK', fg='blue', \
+                       command=self.checkpass, font=quark_button)
         self.button.grid(row=3, column=1)
-        self.button = Button(self.master, text='Back', fg='red', command=self.back, font=quark_button)
+        self.button = Button(self.master, text='Back', fg='red', \
+                        command=self.back, font=quark_button)
         self.button.grid(row=3, column=0)
+                        
 
     def countstring(self, text):
         upper, lower, number, symbol = 0, 0, 0, 0
