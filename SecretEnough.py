@@ -2,6 +2,8 @@ from Tkinter import *
 import tkFont
 from math import *
 
+################################################################################
+
 class Welcome():
     def __init__(self, master):
         self.master = master
@@ -37,89 +39,105 @@ class Welcome():
     def finish(self):
         self.master.destroy()
         
-
+################################################################################
 
 class IdenPass():
     def __init__(self, master):
+        #Initialization identified password windows
         self.text = StringVar()
         self.force = IntVar()
         self.master = master
-        self.master.geometry('600x350')
+        self.master.geometry('850x460')
         self.master.title('Password Identify')
-
-        self.label = Label(self.master, text='This is a Password Identify Page')
+        quark_b = tkFont.Font(family= "Quark", size= 18, weight="bold")
+        quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
+        quark_button = tkFont.Font(family= "Quark", size= 13, weight="bold")
+        self.label = Label(self.master, text='This is a Password Identify Page', font=quark_l)
         self.label.grid(row=0, column=0)
-        self.label2 = Label(self.master, text='Please insert password that you want to identify')
+        self.label2 = Label(self.master, text='Please insert password that you want to identify', font=quark_l)
         self.label2.grid(row=1, column=0)
-        self.passtext = Entry(self.master, textvariable=self.text)
+        self.passtext = Entry(self.master, textvariable=self.text, font=quark_l)
         self.passtext.grid(row=1, column=2)
-        self.label3 = Label(self.master, text='Please insert speed of finding')
+        self.label3 = Label(self.master, text='Please insert speed of finding', font=quark_l)
         self.label3.grid(row=2, column=0, sticky='W')
-        self.passforce = Entry(self.master, textvariable=self.force)
+        self.passforce = Entry(self.master, textvariable=self.force, font=quark_l)
         self.passforce.grid(row=2, column=2)
         self.force.set(1000)
-        self.label4 = Label(self.master, text='combination/sec')
+        self.label4 = Label(self.master, text='combination/sec', font=quark_l)
         self.label4.grid(row=2, column=3)
-        self.button = Button(self.master, text='OK', fg='blue', command=self.checkpass)
+        self.button = Button(self.master, text='OK', fg='blue', command=self.checkpass, font=quark_button)
         self.button.grid(row=3, column=1)
-        self.button = Button(self.master, text='Back', fg='red', command=self.back)
+        self.button = Button(self.master, text='Back', fg='red', command=self.back, font=quark_button)
         self.button.grid(row=3, column=0)
 
-
-    def checkpass(self):
+    def countstring(self, text):
         upper, lower, number, symbol = 0, 0, 0, 0
-        passtext = self.text.get()
-        force = self.force.get()
-        for text in passtext:
-            if text.isupper():
+        color = ['red', 'red', 'red', 'red']
+        for letter in text:
+            if letter.isupper():
                 upper += 1
-            elif text.islower():
+            elif letter.islower():
                 lower += 1
-            elif text.isdigit():
+            elif letter.isdigit():
                 number += 1
             else:
                 symbol += 1
-       
-        textlist = [upper, lower, number, symbol]
+        if upper > 0:
+            color[0] = 'green'
+        if lower > 0:
+            color[1] = 'green'
+        if number > 0:
+            color[2] = 'green'
+        if symbol > 0:
+            color[3] = 'green'
+        return upper, lower, number, symbol, color
+    
+    def checkpass(self):
+        quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
+        passtext = self.text.get()
+        force = self.force.get()
+        textlist = self.countstring(passtext)
         probanum = self.probaCrackPass(textlist, force, passtext)
-        self.labelresult = Label(self.master, text='Your password have :')
+        self.labelresult = Label(self.master, text='Your password have :', \
+                            font=quark_l)
         self.labelresult.grid_forget()
         self.labelresult.grid(row=4, column=0)
-        self.labelupper = Label(self.master, text='%d  Upper case' % upper)
+        self.labelupper = Label(self.master, text='%d  Upper case' % \
+                            textlist[0], font=quark_l, fg=textlist[4][0])
         self.labelupper.grid_forget()
         self.labelupper.grid(row=4, column=1, stick='W')
-        self.labellower = Label(self.master, text='%d  Lower case' % lower)
+        self.labellower = Label(self.master, text='%d  Lower case' % \
+                            textlist[1], font=quark_l, fg=textlist[4][1])
         self.labellower.grid_forget()
         self.labellower.grid(row=4, column=2)
-        self.labelnumber = Label(self.master, text='%d  Digit' % number)
+        self.labelnumber = Label(self.master, text='%d  Digit' % \
+                               textlist[2], font=quark_l, fg=textlist[4][2])
         self.labelnumber.grid_forget()
         self.labelnumber.grid(row=4, column=3)
-        self.labelsymbol = Label(self.master, text='%d  Symbol' % symbol)
+        self.labelsymbol = Label(self.master, text='%d  Symbol' % \
+                               textlist[3], font=quark_l, fg=textlist[4][3])
         self.labelsymbol.grid_forget()
         self.labelsymbol.grid(row=4, column=4)
-        self.labeltextproba = Label(self.master, text='Your password has '+str(probanum[0])+' combination till cracked')
+        self.labeltextproba = Label(self.master, text=\
+                                 'Your password has ' + str(probanum[0]) + \
+                                 ' combination till cracked', font=quark_l)
         self.labeltextproba.grid_forget()
         self.labeltextproba.grid(row=5, column=0, sticky='W')
-        self.labelcrack = Label(self.master, text='Your password has will cracked in')
+        self.labelcrack = Label(self.master, text= \
+                            'Your password has will cracked in', font=quark_l)
         self.labelcrack.grid_forget()
         self.labelcrack.grid(row=6, column=0, sticky='W')
         count = 0
         col = 7
-        lst_prefix = ['years', 'months', 'weeks', 'days', 'hours', 'minutes', 'seconds']
-        check = all(letter == 0 for letter in probanum[1])
-        if check == False:
-            for ele in probanum[1]:
-                self.labeldata = Label(self.master, text=str(ele) +' '+ lst_prefix[count])
-                if self.labeldata.winfo_exists():
-                    self.labeldata.grid_forget()
-                self.labeldata.grid(row=col, column=0)
-                col += 1
-                count += 1
-        else:
-            self.labeldata = Label(self.master, text='Your password will cracked in no time!')
-            if self.labeldata.winfo_exists():
-                    self.labeldata.grid_forget()
-            self.labeldata.grid(row=7, column=0)
+        lst_prefix = ['years', 'months', 'weeks',
+                       'days', 'hours', 'minutes', 'seconds']
+        for ele in probanum[1]:
+            self.labeldata = Label(self.master, text=str(ele) +' '+ \
+                                lst_prefix[count], font=quark_l)
+            self.labeldata.grid_forget()
+            self.labeldata.grid(row=col, column=0)
+            col += 1
+            count += 1
         
     def probaCrackPass(self, textlist, force, data):
         probanum = textlist[0] ** len(data) + textlist[1] ** len(data) + \
@@ -151,6 +169,8 @@ class IdenPass():
                                         
     def back(self):
         self.master.destroy()
+
+################################################################################
 
 class GenePass():
     def __init__(self, master):
