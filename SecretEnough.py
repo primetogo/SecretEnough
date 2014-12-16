@@ -1,6 +1,7 @@
 from Tkinter import *
 import tkFont
 from math import *
+from num2words import num2words
 
 ################################################################################
 
@@ -99,78 +100,69 @@ class IdenPass():
         return upper, lower, number, symbol, color
     
     def checkpass(self):
+        upper, color_up = StringVar(), StringVar()
+        lower, color_down = StringVar(), StringVar()
+        digit, color_digit = StringVar(), StringVar()
+        symbol, color_sym = StringVar(), StringVar()
+        comb_num = StringVar()
         quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
         passtext = self.text.get()
         force = self.force.get()
         textlist = self.countstring(passtext)
         probanum = self.probaCrackPass(textlist, force, passtext)
-        self.labelresult = Label(self.master, text='Your password have :', \
+        upper.set(str(textlist[0]) + ' Upper Case  ')
+        color_up.set(textlist[4][0])
+        lower.set(str(textlist[1]) + ' Lower case  ')
+        color_down.set(textlist[4][1])
+        digit.set(str(textlist[2]) + ' Digit  ')
+        color_digit.set(textlist[4][2])
+        symbol.set(str(textlist[3]) + ' Symbol  ')
+        color_sym.set(textlist[4][3])
+        comb_num.set("Your password has " + str(probanum[0]) + " combination " + \
+                          "it cracked!")
+        
+        self.labelresult = Label(self.master, text='Your password contains :', \
                             font=quark_l)
-        self.labelresult.grid_forget()
         self.labelresult.grid(row=4, column=0)
-        self.labelupper = Label(self.master, text='%d  Upper case' % \
-                            textlist[0], font=quark_l, fg=textlist[4][0])
-        self.labelupper.grid_forget()
+        self.labelupper = Label(self.master, text=upper.get(), \
+                            font=quark_l, fg=color_up.get())
         self.labelupper.grid(row=4, column=1, stick='W')
-        self.labellower = Label(self.master, text='%d  Lower case' % \
-                            textlist[1], font=quark_l, fg=textlist[4][1])
-        self.labellower.grid_forget()
+        self.labellower = Label(self.master, text=lower.get(), \
+                            font=quark_l, fg=color_down.get())
         self.labellower.grid(row=4, column=2)
-        self.labelnumber = Label(self.master, text='%d  Digit' % \
-                               textlist[2], font=quark_l, fg=textlist[4][2])
-        self.labelnumber.grid_forget()
+        self.labelnumber = Label(self.master, text=digit.get(), \
+                               font=quark_l, fg=color_digit.get())
         self.labelnumber.grid(row=4, column=3)
-        self.labelsymbol = Label(self.master, text='%d  Symbol' % \
-                               textlist[3], font=quark_l, fg=textlist[4][3])
-        self.labelsymbol.grid_forget()
+        self.labelsymbol = Label(self.master, text=symbol.get(), \
+                               font=quark_l, fg=color_sym.get())
         self.labelsymbol.grid(row=4, column=4)
-        self.labeltextproba = Label(self.master, text=\
-                                 'Your password has ' + str(probanum[0]) + \
-                                 ' combination till cracked', font=quark_l)
-        self.labeltextproba.grid_forget()
+        self.labeltextproba = Label(self.master, text=comb_num.get(), font=quark_l)
         self.labeltextproba.grid(row=5, column=0, sticky='W')
         self.labelcrack = Label(self.master, text= \
                             'Your password has will cracked in', font=quark_l)
-        self.labelcrack.grid_forget()
         self.labelcrack.grid(row=6, column=0, sticky='W')
-        count = 0
-        col = 7
-        lst_prefix = ['years', 'months', 'weeks',
-                       'days', 'hours', 'minutes', 'seconds']
-        for ele in probanum[1]:
-            self.labeldata = Label(self.master, text=str(ele) +' '+ \
-                                lst_prefix[count], font=quark_l)
-            self.labeldata.grid_forget()
-            self.labeldata.grid(row=col, column=0)
-            col += 1
-            count += 1
+        
         
     def probaCrackPass(self, textlist, force, data):
         probanum = textlist[0] ** len(data) + textlist[1] ** len(data) + \
                    textlist[2] ** len(data) + textlist[3] ** len(data)
-        probanum = factorial(len(data)) / factorial(len(data) - len(data))
         #Calculate time that use to crack password aka bruteforce
+        #use combination number / speed
         crack = []
-        check = all(letter == data[0] for letter in data)
-        if check == False:
-            seconds = int(probanum / force) #time second
-            crack.append(seconds)
-            minutes, seconds = divmod(seconds, 60)
-            crack.append(minutes)
-            hours, minutes = divmod(minutes, 60)
-            crack.append(hours)
-            days, hours = divmod(hours, 24)
-            crack.append(days)
-            weeks, days = divmod(days, 7)
-            crack.append(weeks)
-            months, weeks = divmod(weeks, 4)
-            crack.append(months)
-            years, months = divmod(months, 12)
-            crack.append(years)
-        else:
-            crack = [0]
-            attemp = 1
-            probanum = 1
+        seconds = int(probanum / force) 
+        crack.append(seconds)                       #record time in seconds
+        minutes, seconds = divmod(seconds, 60)
+        crack.append(minutes)                       #record time in minutes
+        hours, minutes = divmod(minutes, 60)
+        crack.append(hours)                          #record time in hours
+        days, hours = divmod(hours, 24)
+        crack.append(days)                           #record time in days
+        weeks, days = divmod(days, 7)
+        crack.append(weeks)                         #record time in weeks
+        months, weeks = divmod(weeks, 4)
+        crack.append(months)                       #record time in months
+        years, months = divmod(months, 12)
+        crack.append(years)                         #record time in years
         return probanum, crack
                                         
     def back(self):
