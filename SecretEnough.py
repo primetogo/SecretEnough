@@ -257,14 +257,14 @@ class GenePass():
         self.button.grid(row=9, column=0)
         
     def checkoption(self):
-        '''Check the checkbox before generete password'''
+        '''Check the checkbox before generate password'''
         isupper = self.upper.get()
         islower = self.lower.get()
         isdigit = self.digit.get()
         issymbol = self.symbol.get()
         check = int(isupper) + int(islower) + int(isdigit) + int(issymbol)
         if check == 0:
-            tkMessageBox.showinfo('Error', 'Please check at lease one checkbox')
+            tkMessageBox.showinfo('Error', 'Please check at least one checkbox')
         else:
             self.genPass(isupper, islower, isdigit, issymbol)
 
@@ -327,7 +327,7 @@ class GenePass():
 
 
 def main():
-    '''Start Program'''
+    '''Start the Program'''
     root = Tk()
     myGUIWelcome = Welcome(root)
     root.mainloop()
