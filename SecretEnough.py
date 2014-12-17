@@ -1,5 +1,12 @@
 from Tkinter import *
+<<<<<<< HEAD
 import tkFont
+=======
+from math import *
+import tkMessageBox
+import tkFont
+import random
+>>>>>>> origin/master
 from num2words import num2words
 
 
@@ -224,33 +231,76 @@ class GenePass():
         self.labellen.grid(row=1, column=0)
         self.passlen = Spinbox(self.master, from_=4, to=20, state=NORMAL)
         self.passlen.grid(row=1, column=1)
-        self.button = Button(self.master, text='OK', fg='blue', command=self.genPass)
+        self.button = Button(self.master, text='OK', fg='blue', command=self.checkoption)
         self.button.grid(row=1, column=2)
-##        self.labelUpper = Label(self.master, text='Upper Case')
-##        self.labelUpper.grid(row=2, column=0)
         self.checkUpper = Checkbutton(self.master, text='Upper Case', variable=self.upper)
         self.checkUpper.grid(row=3, column=0)
-##        self.labelLower = Label(self.master, text='Lower Case')
-##        self.labelLower.grid(row=2, column=1)
         self.checkLower = Checkbutton(self.master, text='Lower Case', variable=self.lower)
         self.checkLower.grid(row=3, column=1)
-##        self.labelDigit = Label(self.master, text='Digit')
-##        self.labelDigit.grid(row=2, column=2)
         self.checkDigit = Checkbutton(self.master, text='Digit', variable=self.digit)
         self.checkDigit.grid(row=3, column=2)
-##        self.labelSymbol = Label(self.master, text='Symbol')
-##        self.labelSymbol.grid(row=2, column=3)
         self.checkSymbol = Checkbutton(self.master, text='Symbol', variable=self.symbol)
         self.checkSymbol.grid(row=3, column=3)
-
+        
         self.button = Button(self.master, text='Back', fg='red', command=self.back)
         self.button.grid(row=9, column=0)
+    def checkoption(self):
+        isupper = self.upper.get()
+        islower = self.lower.get()
+        isdigit = self.digit.get()
+        issymbol = self.symbol.get()
+        check = int(isupper) + int(islower) + int(isdigit) + int(issymbol)
+        if check == 0:
+            tkMessageBox.showinfo('Error', 'Please check at lease one checkbox')
+        else:
+            self.genPass(isupper, islower, isdigit, issymbol)
 
 
-    def genPass(self):
+    def genPass(self, isupper, islower, isdigit, issymbol):
+        strpass = ''
         lenpass = self.passlen.get()
         
-        print lenpass
+        listsymbol = [33, 35, 36, 37, 38, 63, 64]
+        lenpass = int(lenpass)
+        
+        while len(strpass) < lenpass:
+            if isupper:
+                strpass += self.randomchar([65, 90])
+                if len(strpass) == lenpass:
+                    break
+            if islower:
+                strpass += self.randomchar([97, 122])
+                if len(strpass) == lenpass:
+                    break
+            if isdigit:
+                strpass += self.randomchar([48, 57])
+                if len(strpass) == lenpass:
+                    break
+            if issymbol:
+                temp = self.randomsymbol(listsymbol)
+                strpass += temp
+                if len(strpass) == lenpass:
+                    break
+        strpass = self.shufflePass(strpass)
+        self.showpass(strpass)
+    def showpass(self, strpass):
+        self.text = StringVar()
+        self.labelpass = Label(self.master, text='Here is a password :')
+        self.labelpass.grid(row=4, column=0)
+        self.text.set(strpass)
+        self.showtext = Entry(self.master, textvariable=self.text)
+        self.showtext.grid(row=4, column=1)
+
+    def randomchar(self, numrange):
+        return chr(random.randint(numrange[0], numrange[1]))
+
+    def randomsymbol(self, listsymbol):
+        return chr(listsymbol[random.randint(0, len(listsymbol)-1)])
+
+    def shufflePass(self, strpass):
+        return ''.join(random.sample(strpass, len(strpass)))
+        
+        
 
     def back(self):
         self.master.destroy()
