@@ -12,7 +12,7 @@ manual/doc link: https://pypi.python.org/pypi/num2words
 SetupTools
 manual/doc link: https://pypi.python.org/pypi/setuptools#downloads
 
-Please install font and module in github before using progran
+Please install font and module in github before using program
 
 How to use this program?
 
