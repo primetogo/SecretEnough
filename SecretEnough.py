@@ -70,11 +70,11 @@ class IdenPass():
         self.master = master
         self.master.geometry('850x460')
         self.master.title('Password Identify')
-        quark_b = tkFont.Font(family= "Quark", size= 18, weight="bold")
+        quark_b = tkFont.Font(family= "Quark", size= 16, weight="bold")
         quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
         quark_button = tkFont.Font(family= "Quark", size= 13, weight="bold")
         self.label = Label(self.master, text= \
-                      'This is a Password Identify Page', font=quark_l)
+                      'This is a Password Identify Page', font=quark_b)
         self.label.grid(row=0, column=1)
         self.label2 = Label(self.master, text= \
                         'Please insert password for identify', \
@@ -236,8 +236,9 @@ class GenePass():
         self.master = master
         self.master.geometry('650x200')
         self.master.title('Password Genereter')
+        quark_b = tkFont.Font(family= "Quark", size= 16, weight="bold")
         quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
-        self.label = Label(self.master, text='This is a Password Gereneter Page', font=quark_l)
+        self.label = Label(self.master, text='This is a Password Gereneter Page', font=quark_b)
         self.label.grid(row=0, column=1)
         self.labellen = Label(self.master, text='How length for the password', font=quark_l)
         self.labellen.grid(row=1, column=0)
