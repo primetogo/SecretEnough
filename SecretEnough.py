@@ -1,12 +1,8 @@
 from Tkinter import *
-<<<<<<< HEAD
-import tkFont
-=======
 from math import *
 import tkMessageBox
 import tkFont
 import random
->>>>>>> origin/master
 from num2words import num2words
 
 
@@ -76,9 +72,8 @@ class IdenPass():
         self.passtext.grid(row=1, column=2)
         self.label3 = Label(self.master, text='Please insert speed of finding', font=quark_l)
         self.label3.grid(row=2, column=0, sticky='W')
-        self.passforce = Entry(self.master, textvariable=self.force, font=quark_l)
+        self.passforce = Spinbox(self.master, from_=1000, to=9000000, state=NORMAL, font=quark_l)
         self.passforce.grid(row=2, column=2)
-        self.force.set(1000)
         self.label4 = Label(self.master, text='combination/sec', font=quark_l)
         self.label4.grid(row=2, column=3)
         self.button = Button(self.master, text='OK', fg='blue', \
@@ -122,7 +117,7 @@ class IdenPass():
         StringVar()
         quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
         passtext = self.text.get()
-        force = self.force.get()
+        force = self.passforce.get()
         textlist = self.countstring(passtext)
         probanum = self.probaCrackPass(textlist, force, passtext)
         upper.set(str(textlist[0]) + ' Upper Case  ')
@@ -142,8 +137,7 @@ class IdenPass():
         hour.set(probanum[1][4])
         minute.set(probanum[1][5])
         second.set(probanum[1][6])
-        
-        
+    
         self.labelresult = Label(self.master, text='Your password contains :', \
                             font=quark_l)
         self.labelresult.grid(row=4, column=0)
@@ -194,7 +188,7 @@ class IdenPass():
         #Calculate time that use to crack password aka bruteforce
         #use combination number / speed
         crack = []
-        seconds = int(probanum / force) 
+        seconds = int(probanum / int(force)) 
         crack.append(seconds)                       #record time in seconds
         minutes, seconds = divmod(seconds, 60)
         crack.append(minutes)                       #record time in minutes
@@ -225,25 +219,27 @@ class GenePass():
         self.master.geometry('500x200')
         self.master.title('Password Genereter')
 
-        self.label = Label(self.master, text='This is a Password Gereneter Page')
+        quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
+        self.label = Label(self.master, text='This is a Password Gereneter Page', font=quark_l)
         self.label.grid(row=0, column=0)
-        self.labellen = Label(self.master, text='How length for the password')
+        self.labellen = Label(self.master, text='How length for the password', font=quark_l)
         self.labellen.grid(row=1, column=0)
-        self.passlen = Spinbox(self.master, from_=4, to=20, state=NORMAL)
+        self.passlen = Spinbox(self.master, from_=4, to=20, state=NORMAL, font=quark_l)
         self.passlen.grid(row=1, column=1)
-        self.button = Button(self.master, text='OK', fg='blue', command=self.checkoption)
+        self.button = Button(self.master, text='OK', fg='blue', command=self.checkoption, font=quark_l)
         self.button.grid(row=1, column=2)
-        self.checkUpper = Checkbutton(self.master, text='Upper Case', variable=self.upper)
+        self.checkUpper = Checkbutton(self.master, text='Upper Case', variable=self.upper, font=quark_l)
         self.checkUpper.grid(row=3, column=0)
-        self.checkLower = Checkbutton(self.master, text='Lower Case', variable=self.lower)
+        self.checkLower = Checkbutton(self.master, text='Lower Case', variable=self.lower, font=quark_l)
         self.checkLower.grid(row=3, column=1)
-        self.checkDigit = Checkbutton(self.master, text='Digit', variable=self.digit)
+        self.checkDigit = Checkbutton(self.master, text='Digit', variable=self.digit, font=quark_l)
         self.checkDigit.grid(row=3, column=2)
-        self.checkSymbol = Checkbutton(self.master, text='Symbol', variable=self.symbol)
+        self.checkSymbol = Checkbutton(self.master, text='Symbol', variable=self.symbol, font=quark_l)
         self.checkSymbol.grid(row=3, column=3)
         
-        self.button = Button(self.master, text='Back', fg='red', command=self.back)
+        self.button = Button(self.master, text='Back', fg='red', command=self.back, font=quark_l)
         self.button.grid(row=9, column=0)
+        
     def checkoption(self):
         isupper = self.upper.get()
         islower = self.lower.get()
