@@ -1,3 +1,9 @@
+'''
+Project PSIT - SecretEnough?
+Do it by :
+Apisit Seekaewnit 55070138
+Panupong Prueksa 55070089
+'''
 from Tkinter import *
 from math import *
 import tkMessageBox
@@ -9,7 +15,9 @@ from num2words import num2words
 ################################################################################
 
 class Welcome():
+    '''Class Welcome'''
     def __init__(self, master):
+        '''Install the constructor of widgets'''
         self.master = master
         self.master.geometry('640x150')
         self.master.title('Secret Enough?')
@@ -19,7 +27,7 @@ class Welcome():
         self.label1 = Label(self.master, text= \
                          'Welcome to the Secret Enough? Application', font=quark_b)
         self.label1.grid(row=0, column=2)
-        self.lable2 = Label(self.master, text='Which funtion you want to use?',\
+        self.lable2 = Label(self.master, text='Which function you want to use?',\
                          font=quark_l)
         self.lable2.grid(row=1, column=2)
         self.button1 = Button(self.master, text='Identify Password', fg='blue', \
@@ -35,24 +43,28 @@ class Welcome():
 
 
     def gotoCalPass(self):
+        '''Go to Identify Password Page'''
         root2 = Toplevel(self.master)
         myGUI = IdenPass(root2)
 
 
     def gotoGePass(self):
+        '''Go to Genereter Password Page'''
         root3 = Toplevel(self.master)
         myGUI = GenePass(root3)
     
 
 
     def finish(self):
+        '''Close the program'''
         self.master.destroy()
         
 ################################################################################
 
 class IdenPass():
+    '''Class Identify Password'''
     def __init__(self, master):
-        #Initialization identified password windows
+        '''Install the constructor of widgets'''
         self.text = StringVar()
         self.force = IntVar()
         self.master = master
@@ -63,17 +75,17 @@ class IdenPass():
         quark_button = tkFont.Font(family= "Quark", size= 13, weight="bold")
         self.label = Label(self.master, text= \
                       'This is a Password Identify Page', font=quark_l)
-        self.label.grid(row=0, column=0)
+        self.label.grid(row=0, column=1)
         self.label2 = Label(self.master, text= \
-                        'Please insert password that you want to identify', \
+                        'Please insert password for identify', \
                         font=quark_l)
         self.label2.grid(row=1, column=0)
         self.passtext = Entry(self.master, textvariable=self.text, font=quark_l)
-        self.passtext.grid(row=1, column=2)
+        self.passtext.grid(row=1, column=1)
         self.label3 = Label(self.master, text='Please insert speed of finding', font=quark_l)
         self.label3.grid(row=2, column=0, sticky='W')
         self.passforce = Spinbox(self.master, from_=1000, to=9000000, state=NORMAL, font=quark_l)
-        self.passforce.grid(row=2, column=2)
+        self.passforce.grid(row=2, column=1)
         self.label4 = Label(self.master, text='combination/sec', font=quark_l)
         self.label4.grid(row=2, column=3)
         self.button = Button(self.master, text='OK', fg='blue', \
@@ -81,10 +93,11 @@ class IdenPass():
         self.button.grid(row=3, column=1)
         self.button = Button(self.master, text='Back', fg='red', \
                         command=self.back, font=quark_button)
-        self.button.grid(row=3, column=0)
+        self.button.grid(row=1, column=3)
                         
 
     def countstring(self, text):
+        '''Find the element of Password'''
         upper, lower, number, symbol = 0, 0, 0, 0
         color = ['red', 'red', 'red', 'red']
         for letter in text:
@@ -97,16 +110,17 @@ class IdenPass():
             else:
                 symbol += 1
         if upper > 0:
-            color[0] = 'green'
+            color[0] = 'blue'
         if lower > 0:
-            color[1] = 'green'
+            color[1] = 'blue'
         if number > 0:
-            color[2] = 'green'
+            color[2] = 'blue'
         if symbol > 0:
-            color[3] = 'green'
+            color[3] = 'blue'
         return upper, lower, number, symbol, color
     
     def checkpass(self):
+        '''Identify Password'''
         upper, color_up = StringVar(), StringVar()
         lower, color_down = StringVar(), StringVar()
         digit, color_digit = StringVar(), StringVar()
@@ -143,46 +157,47 @@ class IdenPass():
         self.labelresult.grid(row=4, column=0)
         self.labelupper = Label(self.master, text=upper.get(), \
                             font=quark_l, fg=color_up.get())
-        self.labelupper.grid(row=4, column=1, stick='W')
+        self.labelupper.grid(row=5, column=0)
         self.labellower = Label(self.master, text=lower.get(), \
                             font=quark_l, fg=color_down.get())
-        self.labellower.grid(row=4, column=2)
+        self.labellower.grid(row=6, column=0)
         self.labelnumber = Label(self.master, text=digit.get(), \
                                font=quark_l, fg=color_digit.get())
-        self.labelnumber.grid(row=4, column=3)
+        self.labelnumber.grid(row=7, column=0)
         self.labelsymbol = Label(self.master, text=symbol.get(), \
                                font=quark_l, fg=color_sym.get())
-        self.labelsymbol.grid(row=4, column=4)
+        self.labelsymbol.grid(row=8, column=0)
         self.labeltextproba = Label(self.master, text=comb_num.get(), font=quark_l)
-        self.labeltextproba.grid(row=5, column=0, sticky='W')
+        self.labeltextproba.grid(row=4, column=1)
         self.labelcrack = Label(self.master, text= \
                             'Your password has will cracked in', font=quark_l)
-        self.labelcrack.grid(row=6, column=0, sticky='W')
+        self.labelcrack.grid(row=5, column=1)
         self.labelyear = Label(self.master, text=year.get()+ " -->  " + \
                              num2words(int(year.get())) + " Years", font=quark_l)
-        self.labelyear.grid(row=7, column=0)
+        self.labelyear.grid(row=6, column=1)
         self.labelmonth = Label(self.master, text=month.get() + " -->  " + \
                              num2words(int(month.get())) + " Months", font=quark_l)
-        self.labelmonth.grid(row=8, column=0)
+        self.labelmonth.grid(row=7, column=1)
         self.labelweek = Label(self.master, text=week.get() + " -->  " + \
                              num2words(int(week.get())) + " Weeks", font=quark_l)
-        self.labelweek.grid(row=9, column=0)
+        self.labelweek.grid(row=8, column=1)
         self.labelday = Label(self.master, text=day.get() + " -->  " + \
                              num2words(int(day.get())) + " Days", font=quark_l)
-        self.labelday.grid(row=10, column=0)
+        self.labelday.grid(row=9, column=1)
         self.labelhour = Label(self.master, text=hour.get() + " -->  " + \
                              num2words(int(hour.get())) + " Hours", font=quark_l)
-        self.labelhour.grid(row=11, column=0)
+        self.labelhour.grid(row=10, column=1)
         self.labelminute = Label(self.master, text=minute.get() + " -->  " + \
                                 num2words(int(minute.get())) + " Minutes", font=quark_l)
-        self.labelminute.grid(row=12, column=0)
+        self.labelminute.grid(row=11, column=1)
         self.labelsecond = Label(self.master, text=second.get() + " -->  " + \
                              num2words(int(second.get())) + " Seconds", font=quark_l)
-        self.labelsecond.grid(row=13, column=0)
+        self.labelsecond.grid(row=12, column=1)
         
         
         
     def probaCrackPass(self, textlist, force, data):
+        '''Find the time to crack password'''
         probanum = textlist[0] ** len(data) + textlist[1] ** len(data) + \
                    textlist[2] ** len(data) + textlist[3] ** len(data)
         #Calculate time that use to crack password aka bruteforce
@@ -205,23 +220,25 @@ class IdenPass():
         return probanum, crack
                                         
     def back(self):
+        '''Close the Page'''
         self.master.destroy()
 
 ################################################################################
 
 class GenePass():
+    '''Class Genereter Password'''
     def __init__(self, master):
+        '''Install the constructor of widgets'''
         self.upper = IntVar()
         self.lower = IntVar()
         self.digit = IntVar()
         self.symbol = IntVar()
         self.master = master
-        self.master.geometry('500x200')
+        self.master.geometry('650x200')
         self.master.title('Password Genereter')
-
         quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
         self.label = Label(self.master, text='This is a Password Gereneter Page', font=quark_l)
-        self.label.grid(row=0, column=0)
+        self.label.grid(row=0, column=1)
         self.labellen = Label(self.master, text='How length for the password', font=quark_l)
         self.labellen.grid(row=1, column=0)
         self.passlen = Spinbox(self.master, from_=4, to=20, state=NORMAL, font=quark_l)
@@ -236,11 +253,11 @@ class GenePass():
         self.checkDigit.grid(row=3, column=2)
         self.checkSymbol = Checkbutton(self.master, text='Symbol', variable=self.symbol, font=quark_l)
         self.checkSymbol.grid(row=3, column=3)
-        
         self.button = Button(self.master, text='Back', fg='red', command=self.back, font=quark_l)
         self.button.grid(row=9, column=0)
         
     def checkoption(self):
+        '''Check the checkbox before generete password'''
         isupper = self.upper.get()
         islower = self.lower.get()
         isdigit = self.digit.get()
@@ -253,6 +270,7 @@ class GenePass():
 
 
     def genPass(self, isupper, islower, isdigit, issymbol):
+        '''Generate Password'''
         strpass = ''
         lenpass = self.passlen.get()
         
@@ -280,29 +298,36 @@ class GenePass():
         strpass = self.shufflePass(strpass)
         self.showpass(strpass)
     def showpass(self, strpass):
+        '''Show password from genereter'''
+        quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
         self.text = StringVar()
-        self.labelpass = Label(self.master, text='Here is a password :')
+        self.labelpass = Label(self.master, text='Here is a password :', font=quark_l)
         self.labelpass.grid(row=4, column=0)
         self.text.set(strpass)
-        self.showtext = Entry(self.master, textvariable=self.text)
+        self.showtext = Entry(self.master, textvariable=self.text, font=quark_l)
         self.showtext.grid(row=4, column=1)
 
     def randomchar(self, numrange):
+        '''Random upper case, lower case and digit'''
         return chr(random.randint(numrange[0], numrange[1]))
 
     def randomsymbol(self, listsymbol):
+        '''Random symbol'''
         return chr(listsymbol[random.randint(0, len(listsymbol)-1)])
 
     def shufflePass(self, strpass):
+        '''Shuffle Password after fihish generate'''
         return ''.join(random.sample(strpass, len(strpass)))
         
         
 
     def back(self):
+        '''Close genereter password Page'''
         self.master.destroy()
 
 
 def main():
+    '''Start Program'''
     root = Tk()
     myGUIWelcome = Welcome(root)
     root.mainloop()
