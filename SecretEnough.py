@@ -13,15 +13,20 @@ class Welcome():
         quark_b = tkFont.Font(family= "Quark", size= 18, weight="bold")
         quark_l = tkFont.Font(family= "Quark", size= 16, weight="bold")
         quark_button = tkFont.Font(family= "Quark", size= 13, weight="bold")
-        self.label1 = Label(self.master, text='Welcome to the Secret Enough? Application', font=quark_b)
+        self.label1 = Label(self.master, text= \
+                         'Welcome to the Secret Enough? Application', font=quark_b)
         self.label1.grid(row=0, column=2)
-        self.lable2 = Label(self.master, text='Which funtion you want to use?', font=quark_l)
+        self.lable2 = Label(self.master, text='Which funtion you want to use?',\
+                         font=quark_l)
         self.lable2.grid(row=1, column=2)
-        self.button1 = Button(self.master, text='Identify Password', fg='blue', font=quark_button, command=self.gotoCalPass)
+        self.button1 = Button(self.master, text='Identify Password', fg='blue', \
+                           font=quark_button, command=self.gotoCalPass)
         self.button1.grid(row=4, column=1, columnspan=1)
-        self.button2 = Button(self.master, text='Generate Password', fg='blue', font=quark_button, command=self.gotoGePass)
+        self.button2 = Button(self.master, text='Generate Password', fg='blue', \
+                           font=quark_button, command=self.gotoGePass)
         self.button2.grid(row=4, column=2, columnspan=1)
-        self.button3 = Button(self.master, text='Exit', fg='red', font=quark_button, command=self.finish)
+        self.button3 = Button(self.master, text='Exit', fg='red', \
+                           font=quark_button, command=self.finish)
         self.button3.grid(row=4, column=3, columnspan=1)
 
 
@@ -105,6 +110,9 @@ class IdenPass():
         digit, color_digit = StringVar(), StringVar()
         symbol, color_sym = StringVar(), StringVar()
         comb_num = StringVar()
+        year, month, week, day, hour, minute, second = StringVar(), \
+        StringVar(), StringVar(), StringVar(), StringVar(), StringVar(), \
+        StringVar()
         quark_l = tkFont.Font(family= "Quark", size= 13, weight="bold")
         passtext = self.text.get()
         force = self.force.get()
@@ -120,6 +128,14 @@ class IdenPass():
         color_sym.set(textlist[4][3])
         comb_num.set("Your password has " + str(probanum[0]) + " combination " + \
                           "it cracked!")
+        year.set(probanum[1][0])
+        month.set(probanum[1][1])
+        week.set(probanum[1][2])
+        day.set(probanum[1][3])
+        hour.set(probanum[1][4])
+        minute.set(probanum[1][5])
+        second.set(probanum[1][6])
+        
         
         self.labelresult = Label(self.master, text='Your password contains :', \
                             font=quark_l)
@@ -141,6 +157,21 @@ class IdenPass():
         self.labelcrack = Label(self.master, text= \
                             'Your password has will cracked in', font=quark_l)
         self.labelcrack.grid(row=6, column=0, sticky='W')
+        self.labelyear = Label(self.master, text=year.get() + " Years", font=quark_l)
+        self.labelyear.grid(row=7, column=0)
+        self.labelmonth = Label(self.master, text=month.get() + " Months", font=quark_l)
+        self.labelmonth.grid(row=8, column=0)
+        self.labelweek = Label(self.master, text=week.get() + " Weeks", font=quark_l)
+        self.labelweek.grid(row=9, column=0)
+        self.labelday = Label(self.master, text=day.get() + " Days", font=quark_l)
+        self.labelday.grid(row=10, column=0)
+        self.labelhour = Label(self.master, text=hour.get() + " Hours", font=quark_l)
+        self.labelhour.grid(row=11, column=0)
+        self.labelminute = Label(self.master, text=minute.get() + "  Minutes", font=quark_l)
+        self.labelminute.grid(row=12, column=0)
+        self.labelsecond = Label(self.master, text=second.get() + " Seconds", font=quark_)
+        self.labelsecond.grid(row=13, column=0)
+        
         
         
     def probaCrackPass(self, textlist, force, data):
