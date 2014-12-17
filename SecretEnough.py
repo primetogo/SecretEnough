@@ -1,7 +1,7 @@
 from Tkinter import *
 import tkFont
-from math import *
 from num2words import num2words
+
 
 ################################################################################
 
@@ -157,19 +157,26 @@ class IdenPass():
         self.labelcrack = Label(self.master, text= \
                             'Your password has will cracked in', font=quark_l)
         self.labelcrack.grid(row=6, column=0, sticky='W')
-        self.labelyear = Label(self.master, text=year.get() + " Years", font=quark_l)
+        self.labelyear = Label(self.master, text=year.get()+ " -->  " + \
+                             num2words(int(year.get())) + " Years", font=quark_l)
         self.labelyear.grid(row=7, column=0)
-        self.labelmonth = Label(self.master, text=month.get() + " Months", font=quark_l)
+        self.labelmonth = Label(self.master, text=month.get() + " -->  " + \
+                             num2words(int(month.get())) + " Months", font=quark_l)
         self.labelmonth.grid(row=8, column=0)
-        self.labelweek = Label(self.master, text=week.get() + " Weeks", font=quark_l)
+        self.labelweek = Label(self.master, text=week.get() + " -->  " + \
+                             num2words(int(week.get())) + " Weeks", font=quark_l)
         self.labelweek.grid(row=9, column=0)
-        self.labelday = Label(self.master, text=day.get() + " Days", font=quark_l)
+        self.labelday = Label(self.master, text=day.get() + " -->  " + \
+                             num2words(int(day.get())) + " Days", font=quark_l)
         self.labelday.grid(row=10, column=0)
-        self.labelhour = Label(self.master, text=hour.get() + " Hours", font=quark_l)
+        self.labelhour = Label(self.master, text=hour.get() + " -->  " + \
+                             num2words(int(hour.get())) + " Hours", font=quark_l)
         self.labelhour.grid(row=11, column=0)
-        self.labelminute = Label(self.master, text=minute.get() + "  Minutes", font=quark_l)
+        self.labelminute = Label(self.master, text=minute.get() + " -->  " + \
+                                num2words(int(minute.get())) + " Minutes", font=quark_l)
         self.labelminute.grid(row=12, column=0)
-        self.labelsecond = Label(self.master, text=second.get() + " Seconds", font=quark_)
+        self.labelsecond = Label(self.master, text=second.get() + " -->  " + \
+                             num2words(int(second.get())) + " Seconds", font=quark_l)
         self.labelsecond.grid(row=13, column=0)
         
         
