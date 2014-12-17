@@ -25,4 +25,4 @@ There are 2 input to fill it first is password that you want to identify and sec
 
 2.Generate Password - Generate password that you can set the element of password like Upper Case, Digit, etc.
 
-There are 2 kind of data that you need to fill it first is the lenght of password that you want and second is the element in the password that you want to generate it, you can choose what kind of character in the password.
+There are 2 kind of data that you need to fill it first is the lenght of password that you want and second is the element in the password that you want to generate it, you can choose type of character in each of the password.
